@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <style>
+      #grid-container {
+        
+        display: grid;
+        grid-template-columns: repeat(16, 1fr);
+      }
+      .pixel {
+        width: 10px;
+        height: 10px;
+        border: 1px solid black;
+      }
+    </style>
+    <script type="text/babel">
+    
+      function Base() {
+        const [gridList, setGridList] = React.useState(Array.from({ length: 256}, () => 0))
+        return <Grid list={gridList} />;
+      }
+
+      function Grid({ list }) {
+        return (
+          <div id="grid-container">
+            {list.map((x, i) => (
+              <div className="pixel" />
+            ))}
+          </div>
+        )
+      }
+
+      const container = document.getElementById('root');
+      const root = ReactDOM.createRoot(container);
+      root.render(<Base />);
+
+    </script>
+  </body>
+</html>
