@@ -18,21 +18,33 @@ while(list.length < 256){
   })
 }
 
+// console.log(list)
+// const matrixMap = new Array(16);
+// for(let i = 0; i < matrixMap.length; i++) {
+//   matrixMap[i] = []
+// }
+// list.forEach((item, i) => matrixMap[i % 16].push(item))
+
+// const rotatedList = matrixMap[0].map((_, colIndex) => matrixMap.map(row => row[colIndex]));
+// rotatedList.forEach((list) => list.reverse())
+
+// const result = rotatedList.reduce((acc, curr) => [...acc, ...curr])
+
 function decimalToHex(number) {
   return "0x" + number.toString(16).padStart(2, "0");
 }
 
-const ogList = [...Array(256).keys()]
+// const ogList = [...Array(256).keys()]
 
 // const diffLists = list.reduce((acc, curr, i) => {
 //   return `${acc}, ${ogList[i] - curr}`
 // }, '')
 
 
-
 const formatted = list.reverse().reduce((acc, curr, i) => {
   return `${acc}, ${decimalToHex(curr)}`
 }, '')
 
-
 console.log(formatted)
+
+// console.log(formatted)

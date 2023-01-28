@@ -1,6 +1,5 @@
 import .frame
 
-
 test_animation:
   frame := Frame
   frame.set_current (random 16) (random 16)

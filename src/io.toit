@@ -18,6 +18,6 @@ write_dot x/int:
   CLOCK_PIN.set 1
   CLOCK_PIN.set 0
 
-push_segment:
+display_frame:
   LATCH_PIN.set 1
   LATCH_PIN.set 0
