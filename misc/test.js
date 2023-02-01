@@ -34,17 +34,14 @@ function decimalToHex(number) {
   return "0x" + number.toString(16).padStart(2, "0");
 }
 
-// const ogList = [...Array(256).keys()]
+const ogList = [...Array(256).keys()]
 
 // const diffLists = list.reduce((acc, curr, i) => {
 //   return `${acc}, ${ogList[i] - curr}`
 // }, '')
 
-
-const formatted = list.reverse().reduce((acc, curr, i) => {
+const formatted = ogList.reduce((acc, curr, i) => {
   return `${acc}, ${decimalToHex(curr)}`
 }, '')
 
 console.log(formatted)
-
-// console.log(formatted)
