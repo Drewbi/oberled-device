@@ -4,7 +4,7 @@ import .screen
 import .button
 import .power
 import .frame
-import .modes.tree
+import .modes.wave
 
 main:
   init_io
@@ -12,6 +12,7 @@ main:
   screen := Screen "landscape"
   button := Button
   screen.fill 0
+  mode := Wave screen
 
   task::
     while true:
@@ -21,13 +22,6 @@ main:
 
 
   task::
-    frame := Frame
     while true:
       if power.on:
-        16.repeat: |j|
-          16.repeat: |i|
-            frame.set_current i j
-            frame.set_pixel_at_current 1
-            screen.display frame.get
-            sleep --ms=100
-            frame.set_pixel_at_current 0
+        mode.run
