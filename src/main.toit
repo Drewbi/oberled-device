@@ -4,7 +4,7 @@ import .screen
 import .button
 import .power
 import .frame
-import .modes.wave
+import .modes.chase
 
 main:
   init_io
@@ -12,14 +12,13 @@ main:
   screen := Screen "landscape"
   button := Button
   screen.fill 0
-  mode := Wave screen
+  mode := Chase screen
 
   task::
     while true:
       if power.off:
         screen.fill 0
       sleep --ms=10
-
 
   task::
     while true:
