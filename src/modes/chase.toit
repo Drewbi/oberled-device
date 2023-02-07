@@ -15,7 +15,7 @@ class Chase:
     dotPos_ = []
     16.repeat:
       dotPos_.add (random 16)
-    32.repeat: |line|
+    16.repeat: |line|
       16.repeat: |i|
         frame_.set_current (line+i)%16 dotPos_[i]
         frame_.flip_pixel_at_current
