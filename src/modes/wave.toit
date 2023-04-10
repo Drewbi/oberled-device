@@ -15,7 +15,7 @@ class Wave:
   run:
     16.repeat: |line|
       16.repeat: |i|
-        frame_.set_current (line+i-1)%16 dotPos_[i]
+        frame_.set_current (line + i - 1)%16 dotPos_[i]
         frame_.set_pixel_at_current 0
         frame_.set_current (line+i)%16 dotPos_[i]
         frame_.set_pixel_at_current 1
