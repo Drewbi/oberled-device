@@ -4,7 +4,7 @@ import .screen
 import .button
 import .power
 import .frame
-import .modes.pulse
+import .modes.chase
 
 main:
   init_io
@@ -12,7 +12,7 @@ main:
   screen := Screen "landscape"
   button := Button
   screen.fill 0
-  mode := Pulse screen
+  mode := Chase screen
 
   task::
     while true:
