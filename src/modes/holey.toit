@@ -37,7 +37,7 @@ class Hole:
       frame_.set_current cell["x"] cell["y"]
 
       while true:
-        if (random 10) == 1:
+        if (random 40) == 1:
           frame_.set-pixel (random 16) (random 16) 0
         if frame_.get_pixel_at_current == 0:
           frame_.set_pixel_at_current 1
