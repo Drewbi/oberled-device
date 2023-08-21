@@ -4,7 +4,7 @@ import .screen
 import .button
 import .power
 import .frame
-import .modes.chase
+import .modes.cells
 
 main:
   init_io
@@ -12,7 +12,7 @@ main:
   screen := Screen "landscape"
   button := Button
   screen.fill 0
-  mode := Chase screen
+  mode := Cells screen
 
   task::
     while true:

@@ -21,5 +21,3 @@ class Chase:
         frame_.flip_pixel_at_current
         screen_.display frame_.get
         sleep --ms=(random 20 100)
-
-
