@@ -4,7 +4,7 @@ import .screen
 import .button
 import .power
 import .frame
-import .modes.sockey
+import .modes.pattern
 
 main:
   init_io
@@ -12,7 +12,7 @@ main:
   screen := Screen "landscape"
   button := Button
   screen.fill 0
-  mode := Sockey screen
+  mode := Pattern screen
 
   task::
     while true:
