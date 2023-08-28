@@ -4,15 +4,15 @@ import .screen
 import .button
 import .power
 import .frame
-import .modes.pattern
+import .modes.sockey
 
 main:
   init_io
   power := Power
-  screen := Screen "landscape"
+  screen := Screen "portrait"
   button := Button
   screen.fill 0
-  mode := Pattern screen
+  mode := Sockey screen
 
   task::
     while true:

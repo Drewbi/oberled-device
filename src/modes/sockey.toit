@@ -1,5 +1,6 @@
 import http
 import net
+import websocket
 import encoding.json as json
 import ..frame
 import ..screen
@@ -7,30 +8,38 @@ import ..screen
 class Sockey:
   frame_/Frame? := null
   screen_/Screen? := null
+  deque/Deque
 
   constructor screen frame=Frame:
     frame_ = frame
     screen_ = screen
+    deque = Deque
     network := net.open
     client := http.Client network
+    host := "oberled-socket.drub.workers.dev"
+    path := "/ob"
+    session := websocket.Session.connect client host path
 
-    websocket := client.web_socket --host="oberled-socket.drub.workers.dev"
+    task::
+      while msg := session.receive:
+        data := parse msg
+        if data != null and data["positions"] != null and data["positions"] is List:
+          data["positions"].do: |item|
+            if (item.get item.first) != null and (item.get item.last) != null:
+              deque.add item
+    
+    task::
+      while true:
+        if deque.size > 0:
+          deque.remove_first
+        sleep --ms=40
+  
+  parse test/string -> Map:
+    return json.parse test.to_string
 
-    task --background::
-      while reader := websocket.start_receiving:
-        size := 0
-        data := #[]
-        while chunk := reader.read:
-          frame_.clear
-          data += chunk
-          if reader.is_text:
-            failed_parse := catch:
-              object := json.parse data.to_string
-              if object is not Map and object.first != "error":
-                object.do: |item|
-                  if item != null:
-                    if (item.get item.first) != null and (item.get item.last) != null:
-                      frame_.set-pixel (item.get item.last) 15 - (item.get item.first) 1
   run:
+    frame_.clear
+    deque.do: |pos|
+      frame_.set_pixel 15 - (pos.get pos.first) (pos.get pos.last) 1
     screen_.display frame_.get
     sleep --ms=10

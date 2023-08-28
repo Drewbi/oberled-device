@@ -1,4 +1,7 @@
 dependencies:
   http:
     url: github.com/toitlang/pkg-http
-    version: ^2.3.3
+    version: ^1.4.1
+  websocket:
+    url: github.com/toitlang/pkg-websocket
+    version: ^1.0.0

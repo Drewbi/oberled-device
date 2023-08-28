@@ -1,8 +1,14 @@
-sdk: ^2.0.0-alpha.79
 prefixes:
   http: pkg-http
+  websocket: pkg-websocket
 packages:
   pkg-http:
     url: github.com/toitlang/pkg-http
-    version: 2.3.3
-    hash: 1e9de1eade90e9dbe0bab62a11c7bcc9914664d0
+    version: 1.9.3
+    hash: 108c436cc990535f5d70c380ef68081c38840f4c
+  pkg-websocket:
+    url: github.com/toitlang/pkg-websocket
+    version: 1.0.0
+    hash: bf0fedd82f13c44b8f7221582ba585f35b77f2ef
+    prefixes:
+      http: pkg-http
