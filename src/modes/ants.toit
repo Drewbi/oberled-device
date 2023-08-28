@@ -1,7 +1,7 @@
 import ..frame
 import ..screen
 
-class Pattern:
+class Ants:
   frame_/Frame? := null
   screen_/Screen? := null
   count := 0
