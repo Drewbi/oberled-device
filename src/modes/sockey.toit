@@ -23,26 +23,21 @@ class Sockey:
 
     task::
       while msg := session.receive:
+        sleep --ms=1
         screen.display frame_.get
-        print "Received $msg"
         if msg == "ping":
           session.send "pong"
         else:
           data := parse msg
           if data != null and data.contains "positions" and data["positions"] is List:
             data["positions"].do: |item|
-              if (item.get item.first) != null and (item.get item.last) != null:
-                pixelList.add item
-                task::
-                  sleep --ms=250
-                  pixelList.remove item
+              if item.contains "x" and item.contains "y":
+                frame_.set_pixel 15 - item["x"] item["y"] 1
+                screen_.display frame_.get
         
   parse test/string -> Map:
     return json.parse test.to_string
 
   run:
     frame_.clear
-    pixelList.do: |pos|
-      frame_.set_pixel 15 - (pos.get pos.first) (pos.get pos.last) 1
-    screen_.display frame_.get
-    sleep --ms=10
+    sleep --ms=50
