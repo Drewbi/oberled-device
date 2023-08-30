@@ -20,7 +20,7 @@ class Stripe:
       src.add 0
     offset++
     if src.size > 16:
-      src.remove-first
+      src.remove_first
     src.do --reversed=true: |val|
       16.repeat: |line|
         frame_.set_pixel_at_current val
