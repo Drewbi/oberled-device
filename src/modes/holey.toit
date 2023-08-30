@@ -44,7 +44,7 @@ class Hole:
         frame_.move_current (random 3) - 1 (random 3) - 1
         frame_.flip_pixel_at_current
         screen_.display frame_.get
-        sleep --ms=1
+        sleep --ms=5
         frame_.flip_pixel_at_current
         screen_.display frame_.get
     sleep --ms=100

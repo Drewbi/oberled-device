@@ -4,15 +4,15 @@ import .screen
 import .button
 import .power
 import .frame
-import .modes.ogstripe
+import .modes.sockey
 
 main:
   init_io
   power := Power
-  screen := Screen "landscape"
+  screen := Screen "portrait"
   button := Button
   screen.fill 0
-  mode := Stripe screen
+  mode := Sockey screen
 
   task::
     while true:

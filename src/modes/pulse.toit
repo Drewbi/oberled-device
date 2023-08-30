@@ -529,79 +529,43 @@ class Pulse:
     screen_.display frame_.get
     sleep --ms=10000
     if (random 2) == 0:
-      frame_.set ANIM_FRAME_1
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_2
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_3
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_4
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_5
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_6
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_7
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_8
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_9
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_10
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_11
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_12
-      screen_.display frame_.get
-      sleep --ms=frameRate
-      frame_.set ANIM_FRAME_13
-      screen_.display frame_.get
-      sleep --ms=frameRate
+      POP_FRAMES.do: |curr_frame|
+        frame_.set curr_frame
+        screen_.display frame_.get
+        sleep --ms=frameRate
     else:
-      frame_.set SHINE_FRAME_1
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_2
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_3
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_4
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_5
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_6
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_7
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_8
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_9
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_10
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_11
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
-      frame_.set SHINE_FRAME_12
-      screen_.display frame_.get
-      sleep --ms=frameRate/2
+      SHINE_FRAMES.do: |curr_frame|
+        frame_.set curr_frame
+        screen_.display frame_.get
+        sleep --ms=frameRate / 2
+
+POP_FRAMES := [
+  ANIM_FRAME_1,
+  ANIM_FRAME_2,
+  ANIM_FRAME_3,
+  ANIM_FRAME_4,
+  ANIM_FRAME_5,
+  ANIM_FRAME_6,
+  ANIM_FRAME_7,
+  ANIM_FRAME_8,
+  ANIM_FRAME_9,
+  ANIM_FRAME_10,
+  ANIM_FRAME_11,
+  ANIM_FRAME_12,
+  ANIM_FRAME_13,
+]
+
+SHINE_FRAMES := [
+  SHINE_FRAME_1,
+  SHINE_FRAME_2,
+  SHINE_FRAME_3,
+  SHINE_FRAME_4,
+  SHINE_FRAME_5,
+  SHINE_FRAME_6,
+  SHINE_FRAME_7,
+  SHINE_FRAME_8,
+  SHINE_FRAME_9,
+  SHINE_FRAME_10,
+  SHINE_FRAME_11,
+  SHINE_FRAME_12,
+]
