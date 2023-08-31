@@ -3,7 +3,7 @@ import ..screen
 
 class Lightning:
   frame_/Frame? := null
-  screen_/Screen? := null
+  screen_/ScreenLayout? := null
   instruc_ := null
 
   constructor screen frame=Frame:

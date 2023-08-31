@@ -1,26 +1,15 @@
-import .constants
+import net
+
 import .io
-import .screen
-import .button
-import .power
-import .frame
-import .modes.sockey
+import .server
+import .mode
 
 main:
   init_io
-  power := Power
-  screen := Screen "portrait"
-  button := Button
-  screen.fill 0
-  mode := Sockey screen
+  init_modes
+  init_server
 
-  task::
-    while true:
-      if power.off:
-        screen.fill 0
-      sleep --ms=10
-
-  task::
-    while true:
-      if power.on:
-        mode.run
+  while true:
+    current-mode.run
+    mode_changed = false
+    sleep --ms=33

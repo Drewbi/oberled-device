@@ -1,9 +1,10 @@
 import ..frame
 import ..screen
+import ..mode
 
-class Pulse:
+class OGPulse:
   frame_/Frame? := null
-  screen_/Screen? := null
+  screen_/ScreenLayout? := null
 
   constructor screen frame=Frame:
     frame_ = frame
@@ -11,6 +12,7 @@ class Pulse:
 
   run:
     frames.do: |current_frame|
+      if (mode_changed): return
       frame_.set current_frame
       screen_.display frame_.get
       sleep --ms=80
