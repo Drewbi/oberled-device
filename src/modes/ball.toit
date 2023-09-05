@@ -3,7 +3,7 @@ import ..screen
 
 class Ball:
   frame_/Frame? := null
-  screen_/Screen? := null
+  screen_/ScreenLayout? := null
   ballPos := { "x": 8, "y": 8 }
 
   constructor screen frame=Frame:

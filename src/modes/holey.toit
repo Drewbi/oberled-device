@@ -1,5 +1,6 @@
 import ..frame
 import ..screen
+import ..mode
 
 FULL_FRAME ::= #[
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -22,7 +23,7 @@ FULL_FRAME ::= #[
 
 class Hole:
   frame_/Frame? := null
-  screen_/Screen? := null
+  screen_/ScreenLayout? := null
   cellList := []
 
   constructor screen frame=Frame:
@@ -34,6 +35,7 @@ class Hole:
     frame_.set_current (random 16) (random 16)
 
     while true:
+      if (mode_changed): return
       if (random 100) == 1:
         frame_.set-pixel (random 16) (random 16) 0
       if frame_.get_pixel_at_current == 0:

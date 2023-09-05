@@ -22,7 +22,7 @@ IMAGE_FRAME ::= #[
 
 class Picture:
   frame_/Frame? := null
-  screen_/Screen? := null
+  screen_/ScreenLayout? := null
 
   constructor screen frame=Frame:
     frame_ = frame

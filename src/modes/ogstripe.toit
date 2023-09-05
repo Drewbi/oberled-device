@@ -1,9 +1,10 @@
 import ..frame
 import ..screen
+import ..mode
 
-class Stripe:
+class OGStripe:
   frame_/Frame? := null
-  screen_/Screen? := null
+  screen_/ScreenLayout? := null
   offset := 0
   src/Deque := Deque
 
@@ -23,6 +24,7 @@ class Stripe:
       src.remove_first
     src.do --reversed=true: |val|
       16.repeat: |line|
+        if (mode_changed): return
         frame_.set_pixel_at_current val
         frame_.move_current 1 0
       frame_.move_current -15 1

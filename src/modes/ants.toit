@@ -1,9 +1,10 @@
 import ..frame
 import ..screen
+import ..mode
 
 class Ants:
-  frame_/Frame? := null
-  screen_/Screen? := null
+  frame_/Frame? := ?
+  screen_/ScreenLayout? := ?
   count := 0
 
   constructor screen frame=Frame:
@@ -14,6 +15,7 @@ class Ants:
   run:
     frameRate := 150
     frames.do: |current_frame|
+      if (mode_changed): return
       frame_.set current_frame
       screen_.display frame_.get
       if count > frames.size:

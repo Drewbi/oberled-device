@@ -1,9 +1,10 @@
 import ..frame
 import ..screen
+import ..mode
 
 class Cells:
   frame_/Frame? := null
-  screen_/Screen? := null
+  screen_/ScreenLayout? := null
   cellList := []
 
   constructor screen frame=Frame:
@@ -17,6 +18,7 @@ class Cells:
       frame_.set_current cell["x"] cell["y"]
 
       while true:
+        if (mode_changed): return
         if frame_.get_pixel_at_current == 0:
           frame_.set_pixel_at_current 1
           screen_.display frame_.get

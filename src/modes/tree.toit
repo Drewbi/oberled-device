@@ -3,7 +3,7 @@ import ..screen
 
 class Tree:
   frame_/Frame? := null
-  screen_/Screen? := null
+  screen_/ScreenLayout? := null
 
   constructor screen frame=Frame:
     frame_ = frame

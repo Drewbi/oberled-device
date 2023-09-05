@@ -94,7 +94,7 @@ LANDSCAPE_SCREEN_MAP ::= [
   0xf1, 0xe1, 0xd1, 0xc1, 0xb1, 0xa1, 0x91, 0x81,   0x80, 0x90, 0xa0, 0xb0, 0xc0, 0xd0, 0xe0, 0xf0, 
 ]
 
-class Screen:
+class ScreenLayout:
   screen_map_ := null
   
   constructor orientation/string:
@@ -120,3 +120,7 @@ class Screen:
       // write_dot data[i]
     display_frame
       
+wipe_screen:
+  NUM_PIXELS.repeat:  
+    write_dot 0
+  display_frame

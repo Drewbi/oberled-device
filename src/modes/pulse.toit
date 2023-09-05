@@ -1,5 +1,64 @@
 import ..frame
 import ..screen
+import ..mode
+
+frameRate := 40
+
+class Pulse:
+  frame_/Frame? := null
+  screen_/ScreenLayout? := null
+
+  constructor screen frame=Frame:
+    frame_ = frame
+    screen_ = screen
+  
+  run:
+    frame_.set BASE_FRAME_1
+    screen_.display frame_.get
+    20.repeat:
+      if (mode_changed): return
+      sleep --ms=500
+    if (random 2) == 0:
+      POP_FRAMES.do: |curr_frame|
+        frame_.set curr_frame
+        screen_.display frame_.get
+        sleep --ms=frameRate
+    else:
+      SHINE_FRAMES.do: |curr_frame|
+        frame_.set curr_frame
+        screen_.display frame_.get
+        sleep --ms=frameRate / 2
+
+POP_FRAMES := [
+  ANIM_FRAME_1,
+  ANIM_FRAME_2,
+  ANIM_FRAME_3,
+  ANIM_FRAME_4,
+  ANIM_FRAME_5,
+  ANIM_FRAME_6,
+  ANIM_FRAME_7,
+  ANIM_FRAME_8,
+  ANIM_FRAME_9,
+  ANIM_FRAME_10,
+  ANIM_FRAME_11,
+  ANIM_FRAME_12,
+  ANIM_FRAME_13,
+]
+
+SHINE_FRAMES := [
+  SHINE_FRAME_1,
+  SHINE_FRAME_2,
+  SHINE_FRAME_3,
+  SHINE_FRAME_4,
+  SHINE_FRAME_5,
+  SHINE_FRAME_6,
+  SHINE_FRAME_7,
+  SHINE_FRAME_8,
+  SHINE_FRAME_9,
+  SHINE_FRAME_10,
+  SHINE_FRAME_11,
+  SHINE_FRAME_12,
+]
 
 BASE_FRAME_1 ::= #[
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -512,60 +571,4 @@ SHINE_FRAME_12 ::= #[
   0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-]
-
-frameRate := 40
-
-class Pulse:
-  frame_/Frame? := null
-  screen_/Screen? := null
-
-  constructor screen frame=Frame:
-    frame_ = frame
-    screen_ = screen
-  
-  run:
-    frame_.set BASE_FRAME_1
-    screen_.display frame_.get
-    sleep --ms=10000
-    if (random 2) == 0:
-      POP_FRAMES.do: |curr_frame|
-        frame_.set curr_frame
-        screen_.display frame_.get
-        sleep --ms=frameRate
-    else:
-      SHINE_FRAMES.do: |curr_frame|
-        frame_.set curr_frame
-        screen_.display frame_.get
-        sleep --ms=frameRate / 2
-
-POP_FRAMES := [
-  ANIM_FRAME_1,
-  ANIM_FRAME_2,
-  ANIM_FRAME_3,
-  ANIM_FRAME_4,
-  ANIM_FRAME_5,
-  ANIM_FRAME_6,
-  ANIM_FRAME_7,
-  ANIM_FRAME_8,
-  ANIM_FRAME_9,
-  ANIM_FRAME_10,
-  ANIM_FRAME_11,
-  ANIM_FRAME_12,
-  ANIM_FRAME_13,
-]
-
-SHINE_FRAMES := [
-  SHINE_FRAME_1,
-  SHINE_FRAME_2,
-  SHINE_FRAME_3,
-  SHINE_FRAME_4,
-  SHINE_FRAME_5,
-  SHINE_FRAME_6,
-  SHINE_FRAME_7,
-  SHINE_FRAME_8,
-  SHINE_FRAME_9,
-  SHINE_FRAME_10,
-  SHINE_FRAME_11,
-  SHINE_FRAME_12,
 ]
