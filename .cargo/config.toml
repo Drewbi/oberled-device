@@ -1,16 +1,31 @@
+[target.xtensa-esp32-none-elf]
+runner = "espflash flash --monitor"
+
+
 [build]
-target = "xtensa-esp32-espidf"
+rustflags = [
+  "-C", "link-arg=-Tlinkall.x",
 
-[target.xtensa-esp32-espidf]
-linker = "ldproxy"
-# runner = "espflash --monitor" # Select this runner for espflash v1.x.x
-runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
+  "-C", "link-arg=-nostartfiles",
 
+  # enable the atomic codegen option for Xtensa
+  "-C", "target-feature=+s32c1i",
+
+  # tell the core library have atomics even though it's not specified in the target definition
+  "--cfg", "target_has_atomic_load_store",
+  "--cfg", 'target_has_atomic_load_store="8"',
+  "--cfg", 'target_has_atomic_load_store="16"',
+  "--cfg", 'target_has_atomic_load_store="32"',
+  "--cfg", 'target_has_atomic_load_store="ptr"',
+  # enable cas
+  "--cfg", "target_has_atomic",
+  "--cfg", 'target_has_atomic="8"',
+  "--cfg", 'target_has_atomic="16"',
+  "--cfg", 'target_has_atomic="32"',
+  "--cfg", 'target_has_atomic="ptr"',
+]
+
+target = "xtensa-esp32-none-elf"
 
 [unstable]
-build-std = ["std", "panic_abort"]
-
-[env]
-# Note: these variables are not used when using pio builder (`cargo build --features pio`)
-ESP_IDF_VERSION = "release/v4.4"
-
+build-std = ["core"]
