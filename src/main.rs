@@ -13,8 +13,15 @@ use hal::{
     IO
 };
 
+use pins::Pins;
+use screen::Screen;
+use utils::{ Orientation, PixelState };
+
+mod utils;
+mod pins;
 mod screen;
-use screen::{ PixelValue, Screen };
+mod frame;
+
 
 #[entry]
 fn main() -> ! {
@@ -39,18 +46,16 @@ fn main() -> ! {
 
     let mut delay = Delay::new(&clocks);
 
-    let mut screen = Screen::new(io);
+    let steps: u8 = 4;
+    let mut screen: Screen = Screen::new(Pins::new(io), Orientation::Landscape, steps);
+
+    screen.frame.set_index(0, 0);
+    screen.frame.set_index(1, 1);
+    screen.frame.set_index(2, 2);
+    screen.frame.set_index(3, 3);
+    screen.frame.set_index(4, 4);
 
     loop {
-        for _ in 0..255 {
-            screen.write_value(PixelValue::On);
-            screen.cycle_latch();
-            delay.delay_ms(100u8);
-        }
-        for _ in 0..255 {
-            screen.write_value(PixelValue::Off);
-            screen.cycle_latch();
-            delay.delay_ms(10u8);
-        }
+        screen.display();
     }
 }
