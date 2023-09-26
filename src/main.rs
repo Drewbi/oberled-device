@@ -13,12 +13,18 @@ use hal::{
     IO
 };
 
+mod screen;
+use screen::{ PixelValue, Screen };
+
 #[entry]
 fn main() -> ! {
+    println!("Initialising system");
     let peripherals = Peripherals::take();
+    let io = IO::new(peripherals.GPIO, peripherals.IO_MUX);
     let mut system = peripherals.DPORT.split();
     let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
 
+    println!("Disabling watchdogs");
     let mut rtc = Rtc::new(peripherals.RTC_CNTL);
     let timer_group0 = TimerGroup::new(
         peripherals.TIMG0,
@@ -30,17 +36,21 @@ fn main() -> ! {
     // Disable MWDT and RWDT (Watchdog) flash boot protection
     wdt.disable();
     rtc.rwdt.disable();
-    
-    println!("Hello world!");
-    let io = IO::new(peripherals.GPIO, peripherals.IO_MUX);
-    let mut led = io.pins.gpio2.into_push_pull_output();
-    
-    led.set_high().unwrap();
+
     let mut delay = Delay::new(&clocks);
 
+    let mut screen = Screen::new(io);
+
     loop {
-        println!("Toggle");
-        led.toggle().unwrap();
-        delay.delay_ms(1000u32);
+        for _ in 0..255 {
+            screen.write_value(PixelValue::On);
+            screen.cycle_latch();
+            delay.delay_ms(100u8);
+        }
+        for _ in 0..255 {
+            screen.write_value(PixelValue::Off);
+            screen.cycle_latch();
+            delay.delay_ms(10u8);
+        }
     }
 }
