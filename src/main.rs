@@ -15,13 +15,16 @@ use hal::{
 
 use pins::Pins;
 use screen::Screen;
-use utils::{ Orientation, PixelState };
+use utils::Orientation;
+
+use crate::config::NUM_LINES;
 
 mod utils;
 mod pins;
 mod screen;
 mod frame;
-
+mod map;
+mod config;
 
 #[entry]
 fn main() -> ! {
@@ -48,12 +51,13 @@ fn main() -> ! {
 
     let steps: u8 = 4;
     let mut screen: Screen = Screen::new(Pins::new(io), Orientation::Landscape, steps);
-
-    screen.frame.set_index(0, 0);
-    screen.frame.set_index(1, 1);
-    screen.frame.set_index(2, 2);
-    screen.frame.set_index(3, 3);
-    screen.frame.set_index(4, 4);
+    screen.frame.set_index(0, 4);
+    for i in 0..NUM_LINES {
+        screen.frame.set_xy(0, i, 4);
+        screen.frame.set_xy(NUM_LINES - 1, i, 4);
+        screen.frame.set_xy(i, 0, 4);
+        screen.frame.set_xy(i, NUM_LINES - 1, 4);
+    }
 
     loop {
         screen.display();
