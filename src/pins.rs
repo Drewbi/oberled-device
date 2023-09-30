@@ -1,3 +1,6 @@
+use core::cell::RefCell;
+
+use critical_section::Mutex;
 use hal::{
     IO,
     prelude::*,
@@ -6,16 +9,17 @@ use hal::{
         Output,
         Input,
         PushPull,
-        PullUp, 
         Bank0GpioRegisterAccess, 
         DualCoreInteruptStatusRegisterAccessBank0, 
         InputOutputAnalogPinType,
         Gpio12Signals,
         Gpio14Signals,
-        Gpio25Signals,
         Gpio26Signals,
         Gpio27Signals,
-    },
+        Gpio25,
+        Event,
+        PullUp,
+    }, interrupt, peripherals,
 };
 
 use crate::utils::PixelState;
@@ -25,8 +29,6 @@ pub struct Pins {
     clock_pin: GpioPin<Output<PushPull>, Bank0GpioRegisterAccess, DualCoreInteruptStatusRegisterAccessBank0, InputOutputAnalogPinType, Gpio14Signals, 14>,
     latch_pin: GpioPin<Output<PushPull>, Bank0GpioRegisterAccess, DualCoreInteruptStatusRegisterAccessBank0, InputOutputAnalogPinType, Gpio12Signals, 12>,
     enable_pin: GpioPin<Output<PushPull>, Bank0GpioRegisterAccess, DualCoreInteruptStatusRegisterAccessBank0, InputOutputAnalogPinType, Gpio26Signals, 26>,
-
-    button_pin: GpioPin<Input<PullUp>, Bank0GpioRegisterAccess, DualCoreInteruptStatusRegisterAccessBank0, InputOutputAnalogPinType, Gpio25Signals, 25>,
 }
 
 impl Pins {
@@ -36,7 +38,11 @@ impl Pins {
         let mut latch_pin = io.pins.gpio12.into_push_pull_output();
         let mut enable_pin = io.pins.gpio26.into_push_pull_output();
         
-        let button_pin = io.pins.gpio25.into_pull_up_input();
+        let mut button_pin = io.pins.gpio25.into_pull_up_input();
+
+        button_pin.listen(Event::FallingEdge);
+        critical_section::with(|cs| BUTTON_MUTEX.borrow_ref_mut(cs).replace(button_pin));
+        interrupt::enable(peripherals::Interrupt::GPIO, interrupt::Priority::Priority2).unwrap();
 
         enable_pin.set_low().unwrap();
         data_pin.set_low().unwrap();
@@ -48,7 +54,6 @@ impl Pins {
             clock_pin,
             latch_pin,
             enable_pin,
-            button_pin,
         }
     }
 
@@ -69,3 +74,5 @@ impl Pins {
         self.latch_pin.set_low().unwrap();
     }
 }
+
+pub static BUTTON_MUTEX: Mutex<RefCell<Option<Gpio25<Input<PullUp>>>>> = Mutex::new(RefCell::new(None));
