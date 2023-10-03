@@ -9,7 +9,7 @@ use hal::{
     prelude::*,
     timer::TimerGroup,
     Rtc,
-    IO,
+    IO, Rng,
 };
 
 use pins::{Pins, BUTTON_MUTEX};
@@ -67,7 +67,8 @@ fn main() -> ! {
     //     SCREEN_MODE = Some(VolatileRef::new(NonNull::new(&mut SCREEN_MODE_STORAGE as *mut _).unwrap()));
     // }
 
-    let mut modes: Modes = Modes::new(&mut screen);
+    let rng = Rng::new(peripherals.RNG);
+    let mut modes: Modes = Modes::new(&mut screen, rng);
 
     let mut old_time = tick_timer.now();
 
