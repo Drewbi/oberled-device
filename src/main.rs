@@ -15,7 +15,6 @@ use hal::{
 use pins::{Pins, BUTTON_MUTEX};
 use screen::Screen;
 use utils::Orientation;
-use volatile::VolatileRef;
 
 use crate::{
     config::{TICKS_PER_UPDATE, NUM_BRIGHTNESS_STEPS},

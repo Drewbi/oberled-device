@@ -1,6 +1,6 @@
 use esp_println::println;
 
-use crate::config::NUM_PIXELS;
+use crate::config::{NUM_PIXELS, NUM_BRIGHTNESS_STEPS};
 use crate::map::{PORTRAIT_MAP, LANDSCAPE_MAP, LANDSCAPE_FLIPPED_MAP, PORTRAIT_FLIPPED_MAP};
 use crate::pins::Pins;
 use crate::utils::{ Orientation, PixelState };
@@ -8,7 +8,7 @@ use crate::frame::Frame;
 
 pub struct Screen {
     pins: Pins,
-    map: [u8; NUM_PIXELS],
+    map: [usize; NUM_PIXELS],
     pub frame: Frame,
 }
 
@@ -32,7 +32,7 @@ impl Screen {
     pub fn display(&mut self) {
         for i in 0..self.frame.steps {
             for u in 0..NUM_PIXELS {
-                if self.frame.data[self.map[u] as usize] > i {
+                if self.frame.data[self.map[u]] > i {
                     self.pins.set_data(PixelState::On);
                 } else {
                     self.pins.set_data(PixelState::Off)

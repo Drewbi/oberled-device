@@ -1,17 +1,18 @@
-// use volatile::VolatileRef;
-
 use crate::screen::Screen;
 
 pub mod test;
 pub mod rando;
+pub mod noisy;
 
 use hal::Rng;
 pub use test::Test;
 pub use rando::Rando;
+pub use noisy::Noisy;
 
 pub enum ModeType<'a> {
     Test(Test),
     Rando(Rando<'a>),
+    Noisy(Noisy<'a>),
 }
 
 impl PartialEq for ModeType<'_> {
@@ -19,6 +20,7 @@ impl PartialEq for ModeType<'_> {
         match (self, other) {
             (ModeType::Test(_), ModeType::Test(_)) => true,
             (ModeType::Rando(_), ModeType::Rando(_)) => true,
+            (ModeType::Noisy(_), ModeType::Noisy(_)) => true,
             _ => false,
         }
     }
@@ -37,11 +39,13 @@ pub struct Modes<'a> {
 
 impl<'a> Modes<'a> {
     pub fn new(screen: &mut Screen, rng: Rng<'a>) -> Self {
-        let mut mode = Rando::new(rng);
+        let mut mode = Test::new();
+        // let mut mode = Noisy::new(rng);
         mode.activate(screen);
 
         Self {
-            current_mode: ModeType::Rando(mode),
+            current_mode: ModeType::Test(mode),
+            // current_mode: ModeType::Noisy(mode),
         }
     }
 
@@ -59,8 +63,11 @@ impl<'a> Modes<'a> {
         if let ModeType::Test(test) = &mut self.current_mode {
             test.update(screen)
         }
-        if let ModeType::Rando(rando) = &mut self.current_mode {
-            rando.update(screen)
-        }
+        // if let ModeType::Rando(rando) = &mut self.current_mode {
+        //     rando.update(screen)
+        // }
+        // if let ModeType::Noisy(noisy) = &mut self.current_mode {
+        //     noisy.update(screen)
+        // }
     }
 }
