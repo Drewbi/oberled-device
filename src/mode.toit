@@ -34,7 +34,7 @@ set_mode mode/string:
   else if mode == "pulse":
     current-mode = Pulse (ScreenLayout "landscape")
   else if mode == "sockey":
-    current-mode = Sockey (ScreenLayout "portrait")
+    current-mode = Sockey (ScreenLayout "portrait_flipped")
   else if mode == "wave":
     current-mode = Wave (ScreenLayout "portrait")
   else:
