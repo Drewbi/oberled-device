@@ -29,6 +29,8 @@ set_mode mode/string:
     current-mode = OGStripe (ScreenLayout "landscape")
   else if mode == "picture":
     current-mode = Picture (ScreenLayout "portrait")
+  else if mode == "monalisa":
+    current-mode = MonaLisa (ScreenLayout "portrait")
   else if mode == "pulse":
     current-mode = Pulse (ScreenLayout "landscape")
   else if mode == "sockey":
@@ -53,6 +55,7 @@ VALID_MODES ::= [
   "ogpulse",
   "ogstripe",
   "picture",
+  "monalisa",
   "pulse",
   "sockey",
   "wave",

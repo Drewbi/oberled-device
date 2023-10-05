@@ -8,6 +8,7 @@ import .holey
 import .ogpulse
 import .ogstripe
 import .picture
+import .monalisa
 import .pulse
 import .sockey
 import .wave
