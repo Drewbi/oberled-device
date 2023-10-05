@@ -19,6 +19,7 @@ MAIN_PAGE ::= """
       <a href="/ogpulse">Pulse (OG)</a>
       <a href="/ogstripe">Stripe (OG)</a>
       <a href="/picture">Picture</a>
+      <a href="/monalisa">Mona</a>
       <a href="/pulse">Pulse</a>
       <a href="/sockey">Sockey</a>
       <a href="/wave">Wave</a>
