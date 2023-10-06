@@ -37,6 +37,8 @@ set_mode mode/string:
     current-mode = Sockey (ScreenLayout "portrait_flipped")
   else if mode == "wave":
     current-mode = Wave (ScreenLayout "portrait")
+  else if mode == "dvd":
+    current-mode = DVD (ScreenLayout "portrait")
   else:
     current-mode = Blank
 
@@ -59,6 +61,7 @@ VALID_MODES ::= [
   "pulse",
   "sockey",
   "wave",
+  "dvd",
 ]
 
 mode_changed := false

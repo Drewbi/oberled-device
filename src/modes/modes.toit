@@ -12,5 +12,6 @@ import .monalisa
 import .pulse
 import .sockey
 import .wave
+import .dvd
 
 export *

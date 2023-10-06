@@ -23,6 +23,7 @@ MAIN_PAGE ::= """
       <a href="/pulse">Pulse</a>
       <a href="/sockey">Sockey</a>
       <a href="/wave">Wave</a>
+      <a href="/dvd">DVD</a>
   </div>
   </body>
 </html>
